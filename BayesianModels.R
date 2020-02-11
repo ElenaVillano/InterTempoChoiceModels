@@ -112,9 +112,9 @@ samples <- jags.parallel(data,
                          parameters,
                          model ="HyperModel.bug",
                          n.chains=2, 
-                         n.iter = 1500000,
-                         n.burnin = 900000,
-                         n.thin = 200)
+                         n.iter = 15000,
+                         n.burnin = 9000,
+                         n.thin = 2)
 
 
 unlink('HyperModel.bug')
@@ -236,9 +236,9 @@ save.image("~/Documents/Heavy_R_Stuff/PublicatedArticleModels/HyperModelArticle.
 #                          parameters,
 #                          model = 'TradeModel.bug',
 #                          n.chains = 2,
-#                          n.iter = 1500000,
-#                          n.burnin = 900000,
-#                          n.thin = 200)
+#                          n.iter = 15000,
+#                          n.burnin = 9000,
+#                          n.thin = 2)
 # 
 # 
 # 
@@ -359,9 +359,9 @@ save.image("~/Documents/Heavy_R_Stuff/PublicatedArticleModels/HyperModelArticle.
 #                          parameters,
 #                          model = 'ITCHModel.bug',
 #                          n.chains = 2,
-#                          n.iter = 1500000,
-#                          n.burnin = 900000,
-#                          n.thin = 200)
+#                          n.iter = 15000,
+#                          n.burnin = 9000,
+#                          n.thin = 2)
 # 
 # 
 # 
@@ -476,9 +476,9 @@ samples <- jags.parallel(data,
                          parameters,
                          model = 'PDModel.bug',
                          n.chains = 2,
-                         n.iter = 1500000,
-                         n.burnin = 900000,
-                         n.thin = 200)
+                         n.iter = 15000,
+                         n.burnin = 9000,
+                         n.thin = 2)
 
 
 
@@ -596,8 +596,8 @@ save.image("~/Documents/Heavy_R_Stuff/PublicatedArticleModels/PDModelArticle.RDa
 #                          parameters,
 #                          model = 'DDModel.bug',
 #                          n.chains = 2,
-#                          n.iter = 1500000,
-#                          n.burnin = 900000,
+#                          n.iter = 15000,
+#                          n.burnin = 9000,
 #                          n.thin = 200)
 # 
 # 
