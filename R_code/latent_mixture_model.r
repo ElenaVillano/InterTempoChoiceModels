@@ -18,7 +18,7 @@ n_rep <- 10            #k, repeticiones
 
 #hofdsa
 # Cargar datos
-load("~/Desktop/article/Datos.rdata")
+load("~/Documents/InterTempoChoiceModels/Data/Datos.rdata")
 
 # datos 
 csvs_time
@@ -156,21 +156,77 @@ write('model{
 
 
 # Parameters to estimate                       
-parameters <- c('sigma','weight','delta','z',
-                'beta_1','beta_x_A','beta_x_R','beta_t_A','beta_t_R','theta',
-                't_gamma','t_tau','t_vartheta','t_kappa','t_epsilon_trade')
+parameters <- c('z','theta',
+                'sigma','weight','delta',
+                'beta_x_A','beta_x_R','beta_t_A','beta_t_R',
+                't_gamma','t_tau','t_vartheta','t_kappa')
 
 # The following command calls WinBUGS with specific options.
 # For a detailed description see Sturtz, Ligges, & Gelman (25).
 samples <- jags.parallel(data,
-                inits = NULL,
+                inits = myinits,
                 parameters,          
                 model = 'latent_model.bug',
                 n.chains = 2,
-                n.iter = 1000,
-                n.burnin = 90,
-                n.thin = 2)
+                n.iter = 4500000,
+                n.burnin = 4300000,
+                n.thin = 20)
 
 unlink('latent_model.bug')
 
-save.image("~/Documents/Heavy_R_Stuff/PublicatedArticleModels/PDModelArticle.RData")
+# cuantos sampleos
+((4500000-4300000)/20)/2
+# cuantas horas
+((24*4500000)/100000)/60
+
+save.image("~/Documents/Heavy_Stuff/article/latent_mixture_model_v1.RData")
+
+summary(samples$BUGSoutput$summary)
+
+plot(samples)
+
+theta<-samples$BUGSoutput$sims.list$theta
+z<-samples$BUGSoutput$sims.list$z
+dim(z)
+summary(z)
+
+layout(matrix(c(1:25),nrow=5,byrow=T))
+
+for(i in 1:n_sub){
+  hist(z[,i],xlim=c(0.5,3.5), breaks=seq(0.5,3.5,0.2),axes=F)
+  axis(1, at=c(1,2,3), lwd.ticks = 0, )
+  
+}
+
+layout(1)
+
+sigma<-samples$BUGSoutput$sims.list$sigma
+delta<-samples$BUGSoutput$sims.list$delta
+weight<-samples$BUGSoutput$sims.list$weight
+
+
+beta_t_A<-samples$BUGSoutput$sims.list$beta_t_A
+beta_t_R<-samples$BUGSoutput$sims.list$beta_t_R
+beta_x_R<-samples$BUGSoutput$sims.list$beta_x_R
+beta_x_A<-samples$BUGSoutput$sims.list$beta_x_A
+
+t_gamma<-samples$BUGSoutput$sims.list$t_gamma
+t_kappa<-samples$BUGSoutput$sims.list$t_kappa
+t_vartheta<-samples$BUGSoutput$sims.list$t_vartheta
+t_tau<-samples$BUGSoutput$sims.list$t_tau
+
+autocorr.plot(as.mcmc(t_tau))
+autocorr.plot(as.mcmc(t_kappa))
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
