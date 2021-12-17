@@ -147,6 +147,7 @@ write('model{
           # For repetitions
           for(r in 1:n_rep){
             t_choice[i,j,r] ~ dbern(theta[i,j,z[i]])
+            pred_t_choice[i,j,r] ~ dbern(theta[i,j,z[i]])
           }
   
       }    
@@ -156,7 +157,7 @@ write('model{
 
 
 # Parameters to estimate                       
-parameters <- c('z','theta',
+parameters <- c('z','theta','pred_t_choice',
                 'sigma','weight','delta',
                 'beta_x_A','beta_x_R','beta_t_A','beta_t_R',
                 't_gamma','t_tau','t_vartheta','t_kappa')
@@ -175,7 +176,7 @@ samples <- jags.parallel(data,
 unlink('latent_model.bug')
 
 # cuantos sampleos
-((4500000-4300000)/20)/2
+((4500000-4300000)/40)
 # cuantas horas
 ((24*4500000)/100000)/60
 
@@ -219,14 +220,5 @@ autocorr.plot(as.mcmc(t_tau))
 autocorr.plot(as.mcmc(t_kappa))
 
 
-
-
-
-
-
-  
-  
-  
-  
 
 
