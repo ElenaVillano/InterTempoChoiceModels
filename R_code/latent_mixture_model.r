@@ -176,11 +176,15 @@ samples <- jags.parallel(data,
 unlink('latent_model.bug')
 
 # cuantos sampleos
-((4500000-4300000)/40)
+((4500000-4300000)/20)
 # cuantas horas
 ((24*4500000)/100000)/60
 
 save.image("~/Documents/Heavy_Stuff/article/latent_mixture_model_v1.RData")
+
+
+load("~/Documents/Heavy_Stuff/article/latent_mixture_model_v1.RData")
+
 
 summary(samples$BUGSoutput$summary)
 
@@ -219,6 +223,13 @@ t_tau<-samples$BUGSoutput$sims.list$t_tau
 autocorr.plot(as.mcmc(t_tau))
 autocorr.plot(as.mcmc(t_kappa))
 
+# los valores para n.eff es el tamaño de muestra efectiva, 
+# entre menores sean peor, deben de ser equivalentes a la muestra de sampleos
+# en las cadenas. 
+layout(1)
+hist(samples$BUGSoutput$summary[,9],breaks = 100)
+hist(samples$BUGSoutput$summary[,8],breaks = 100)
+which(samples$BUGSoutput$summary[,8]>1.001)
 
-
+tail(which(samples$BUGSoutput$summary[,8]>1.001),100)
 
