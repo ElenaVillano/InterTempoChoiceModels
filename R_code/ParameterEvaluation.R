@@ -7,8 +7,11 @@
 
 #############ITCH###################
 rm(list=ls())
+
+setwd('~/Documents/InterTempoChoiceModels/')
+
 #load("/Users/Ele/Documents/Heavy_R_Stuff/PublicatedArticleModels/ITCHModelArticle.RData")
-load("/Users/Ele/Documents/Heavy_R_Stuff/AttributeModels/ITCHVersions/Workitch.RData")
+#load("/Users/Ele/Documents/Heavy_R_Stuff/AttributeModels/ITCHVersions/Workitch.RData")
 
 names(samples$BUGSoutput$sims.list)
 t_theta_trade<-samples$BUGSoutput$sims.list$t_theta_trade
@@ -19,9 +22,9 @@ beta_x_R<-samples$BUGSoutput$sims.list$beta_x_R
 beta_x_A<-samples$BUGSoutput$sims.list$beta_x_A
 
 # Needed things
-source("~/Google Drive/Nube/Intertemporal_Risky_Choice_Project/R_Functions/latestfunciontsTOT.R")
-source("~/Google Drive/Nube/Intertemporal_Risky_Choice_Project/R_Functions/PosterPlots.R")
-setwd("~/Google Drive/Nube/Intertemporal_Risky_Choice_Project/Article_Tesina/Texto_Article/")
+source("R_code/usefull_functions_r/latestfunciontsTOT.R")
+source("R_code/usefull_functions_r/PosterPlots.R")
+
 library('extrafont')
 library('png')
 
