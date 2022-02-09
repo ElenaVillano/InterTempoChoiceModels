@@ -34,8 +34,11 @@ sum(which(samples$BUGSoutput$summary[-totod,8]>1.001))
 length(which(samples$BUGSoutput$summary[-totod,8]>1.001))
 length(samples$BUGSoutput$summary[-totod,8])
 
-which(samples$BUGSoutput$summary[-totod,8]>1.001)
+samples$BUGSoutput$summary[-totod,]
 
+
+which(samples$BUGSoutput$summary[-totod,8]>1.001)
+samples$BUGSoutput$summary[-totod,8]>1.001
 
 # Hyperboloid Model
 rm(list=ls())
