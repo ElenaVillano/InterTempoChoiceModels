@@ -59,7 +59,7 @@ punto_predi_une <- function(propo,ancho,variable,color){
 }
 
 dindi <- function(distribucion,color,colorborde,orienta,rango,rangolab,...){
-  
+
   ejey <- distribucion
   d.ejey <- density(ejey)
   q_1 <- quantile(ejey,0.025)

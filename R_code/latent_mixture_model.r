@@ -197,9 +197,10 @@ summary(z)
 
 layout(matrix(c(1:25),nrow=5,byrow=T))
 
+
 for(i in 1:n_sub){
   hist(z[,i],xlim=c(0.5,3.5), breaks=seq(0.5,3.5,0.2),axes=F)
-  axis(1, at=c(1,2,3), lwd.ticks = 0, )
+  axis(1, at=c(1,2,3), lwd.ticks = 0 )
   
 }
 

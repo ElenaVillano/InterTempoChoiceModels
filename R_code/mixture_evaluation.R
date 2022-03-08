@@ -2,15 +2,17 @@
 
 rm(list=ls())
 
-load("~/Documents/Heavy_Stuff/article/latent_mixture_model_v1.RData")
+#load("~/Documents/Heavy_Stuff/article/latent_mixture_model_v1.RData")
+load("/Volumes/MemoriaEle/HeavyData/Heavy_Stuff/article/latent_mixture_model_v1.RData")
 
-plot(samples)
+#plot(samples)
 
 setwd('~/Documents/InterTempoChoiceModels/')
 
 # Needed things
 source("R_code/usefull_functions_r/latestfunciontsTOT.R")
 source("R_code/usefull_functions_r/PosterPlots.R")
+source("R_code/usefull_functions_r/functions.R")
 
 library('extrafont')
 library('png')
@@ -28,13 +30,29 @@ totod <- c(nomo,nomi)
 sum(which(samples$BUGSoutput$summary[-totod,8]>1.001))
 length(which(samples$BUGSoutput$summary[-totod,8]>1.001))
 length(samples$BUGSoutput$summary[-totod,8])
+
+parametros_conver <- samples$BUGSoutput$summary[-totod,c(8,9)]
+parametros_conver
+length(which(parametros>1.001))
+
+
+hist(parametros,breaks=100)
+parametros
 samples$BUGSoutput$summary[-totod,]
-which(samples$BUGSoutput$summary[-totod,8]>1.001)
-samples$BUGSoutput$summary[-totod,8]>1.001
 
 ####################
 
 theta <- samples$BUGSoutput$sims.list$theta
+deviance <-  samples$BUGSoutput$sims.list$deviance
+
+
+pdf(file='images/trace.pdf',height = 8, width = 8)
+plot(samples$BUGSoutput$sims.array[,1,'deviance'],type='l',col='#E3597299',
+     xlab='deviance',ylab='')
+lines(samples$BUGSoutput$sims.array[,2,'deviance'],type='l',col='#48C9B099')
+dev.off()
+
+
 pred_t_choice <- samples$BUGSoutput$sims.list$pred_t_choice
 z<-samples$BUGSoutput$sims.list$z
 dim(z)
@@ -56,16 +74,131 @@ for(i in 1:n_sub){
   t_total_unos[i] <- sum(t_choice[i,,])
 }
 unos_part_t <- cbind(t_total_unos,parti=c(1:25))
-t_unos_ordenados <- unos_part_t[order(t_total_unos),]
+orden_partici <- unos_part_t[order(t_total_unos),]
 t_choice_clean <- t_choice[,c(1,2,3,7,8,9,4,5,10,11,13:18,19:24),]
 t_predic_clean <- predicha_t[,c(1,2,3,7,8,9,4,5,10,11,13:18,19:24),]
 actual_choice <- t_choice_clean
-predicted_choice <- t_predic_clean
+t_predic_clean_tr <- t_predic_clean
 
 pos_preguntas <- c(1,seq(10,220,10))
 tam_linea <- 1.8
 
-i <- 24
+theta_1 <- theta[,,,1]
+theta_2 <- theta[,,,2]
+theta_3 <- theta[,,,3]
+
+
+
+pdf(file='images/zts.pdf',height = 8, width = 8)
+layout(matrix(c(1:25),nrow=5,byrow=T))
+par(mar=c(3,2,1,0.5),oma=c(0,1.1,0,0))
+for(i in 1:n_sub){
+  plot(0,type='n',xlim=c(0.5,3.5), ylim=c(0,25000),axes=F,xlab='',ylab='')
+  axis(1, at=c(0,1,2,3,4), lwd.ticks = 0.01)
+  text(1.5,10000,i, cex=3,col='#BDACAF99')
+  hist(z[,i], xlim=c(0,4),main='', breaks=seq(0.75,3.7,0.5),
+       axes=F, add=T, ylim=c(0,25000), col='#CE6173F2', border='white')
+}
+dev.off()
+
+
+names(samples$BUGSoutput$sims.list)
+
+t_gamma<-samples$BUGSoutput$sims.list$t_gamma
+t_kappa<-samples$BUGSoutput$sims.list$t_kappa
+t_vartheta<-samples$BUGSoutput$sims.list$t_vartheta
+t_tau<-samples$BUGSoutput$sims.list$t_tau
+
+# Taking means from each parameter
+media_var <- summary(t_vartheta)[4,]
+me_var <- as.numeric(gsub("Mean   :","",media_var))
+orden_var <- order(me_var)
+
+me_gamma <- summary(t_gamma)[4,]
+me_gamma <- as.numeric(gsub("Mean   :","",me_gamma))
+
+me_tau <- summary(t_tau)[4,]
+me_tau <- as.numeric(gsub("Mean   :","",me_tau))
+
+me_kappa <- summary(t_kappa)[4,]
+me_kappa <- as.numeric(gsub("Mean   :","",me_kappa))
+
+# Max values
+q3_var <- summary(t_vartheta)[5,]
+q3_var <- as.numeric(gsub("3rd Qu.:","",q3_var))
+orden_var_max <- order(max_var)
+
+q3_gamma <- summary(t_gamma)[5,]
+q3_gamma <- as.numeric(gsub("3rd Qu.:","",q3_gamma))
+
+q3_tau <- summary(t_tau)[5,]
+q3_tau <- as.numeric(gsub("3rd Qu.:","",q3_tau))
+
+q3_kappa <- summary(t_kappa)[5,]
+q3_kappa <- as.numeric(gsub("3rd Qu.:","",q3_kappa))
+
+
+
+pdf('images/parametros_trade_article.pdf',height = 6.5,width=6)
+
+layout(matrix(c(1:4),ncol=4)) 
+par(mar=c(3,2.5,0.5,0.5),oma=c(1,1.1,1,0))
+
+values_densidades_vert(t_vartheta, c(0,max(q3_var)),expression(vartheta),'#20B2AA',T,c(10,20,30))
+mtext('Posteriors',1,col=gray[5],line=2.5,cex=0.7)
+mtext('Participants',2,col=gray[5],line=2.5,cex=0.8)
+values_densidades_vert(t_tau, c(0,max(q3_tau)),expression(tau),'#20B2AA',T,c(0.025,10,20))
+values_densidades_vert(t_gamma, c(0,max(q3_gamma)),expression(gamma),'#20B2AA',T,c(100,200,600))
+values_densidades_vert(t_kappa, c(0,max(q3_kappa)),expression(kappa),'#20B2AA',T,c(500,1000,2000))
+
+dev.off()
+
+
+
+pdf('images/parametros_trade_article_axesdif.pdf',height = 6.5,width=6)
+
+layout(matrix(c(1:4),ncol=4)) 
+par(mar=c(3,2.5,0.5,0.5),oma=c(1,1.1,1,0))
+
+values_densidades_vert(t_vartheta, c(0,10),expression(vartheta),'#20B2AA',T,c(10,20,30))
+mtext('Posteriors',1,col=gray[5],line=2.5,cex=0.7)
+mtext('Participants',2,col=gray[5],line=2.5,cex=0.8)
+values_densidades_vert(t_tau, c(0,1),expression(tau),'#20B2AA',T,c(0.025,10,20))
+values_densidades_vert(t_gamma, c(0,10),expression(gamma),'#20B2AA',T,c(100,200,600))
+values_densidades_vert(t_kappa, c(0,10),expression(kappa),'#20B2AA',T,c(500,1000,2000))
+
+dev.off()
+
+
+
+######################
+
+
+
+
+pdf(file='images/ArticleGrand.pdf',width = 6.5,height =4.7 )
+tam_linea <- 0.94
+
+layout(matrix(c(1,1,2,2,
+                3,3,4,4),ncol=4,byrow=T))
+par(mar=c(1.2,1.5,1,0.2),oma=c(1,1,2,0))
+set.seed(50)
+predicciones_datos(T,actual_choice,theta_1,'','Data')
+mtext('Questions',1,cex=0.5, line=1,col='gray48')
+mtext('Participants',2,cex=0.5, line=1.3,col='gray48')
+predicciones_datos(F,actual_choice,theta_1,'','')
+mtext('ITCH (theta_1)',2,cex=1, line=1.3,col='gray48')
+predicciones_datos(F,actual_choice,theta_2,'','')
+mtext('DD (theta_2)',2,cex=1, line=1.2,col='gray48')
+predicciones_datos(F,actual_choice,theta_3,'','')
+mtext('Trade-off (theta_3)',2,cex=1, line=1.3,col='gray48')
+
+dev.off()
+
+
+
+
+i <- 1
 file <- paste('images/representaDD',i,'.pdf',sep='')
 
 start_poster(file,6.5,7,rep(0,4))
@@ -113,16 +246,15 @@ for(j in 1:22){
 }
 
 
-
 ########### conjuntas 
 #### Plot1 sigma delta
 new_plot(which_point = 'center_center',
          coordinates = c(-0.6,-0.3),
          width = 2,height = 2,
          label='1')
-# 
-#plot(sigma[5000:6000,i],delta[5000:6000,i],xlim=c(0,4),ylim=c(-3,0),axes=F,xlab='',ylab='',
-#     col='#20B2AA44',bg='#66CDAA11',pch=21)
+
+plot(sigma[5000:6000,i],delta[5000:6000,i],xlim=c(0,4),ylim=c(-3,0),axes=F,xlab='',ylab='',
+     col='#20B2AA44',bg='#66CDAA11',pch=21)
 
 #lines(c(1,1),c(-3,0),col='gray75')
 #lines(c(2,2),c(-3,0),col='gray75')
@@ -131,14 +263,16 @@ new_plot(which_point = 'center_center',
 #lines(c(0,4),c(-2,-2),col='gray75')
 #lines(c(0,4),c(-3,-3),col='gray75')
 
+
+
 #### Plot2 delta weight 
 new_plot(which_point = 'center_center',
          coordinates = c(1.5,-0.3),
          width = 2,height = 2,
          label='2')
-plot(0)
-#plot(weight[5000:6000,i],delta[5000:6000,i],xlim=c(-0.005,0.008),ylim=c(-3,0),axes=F,xlab='',ylab='',
-#     col='#20B2AA44',bg='#66CDAA11',pch=21)
+
+plot(weight[5000:6000,i],delta[5000:6000,i],xlim=c(-0.005,0.008),ylim=c(-3,0),axes=F,xlab='',ylab='',
+     col='#20B2AA44',bg='#66CDAA11',pch=21)
 #lines(c(-0.004,0.008),c(-3,-3),col='gray75')
 #lines(c(-0.004,0.008),c(-2,-2),col='gray75')
 #lines(c(-0.004,0.008),c(-1,-1),col='gray75')
@@ -151,9 +285,9 @@ new_plot(which_point = 'center_center',
          coordinates = c(-0.6,-2.5),
          width = 2,height = 2,
          label='3')
-plot(0)
-#plot(sigma[5000:6000,i],weight[5000:6000,i],xlim=c(0,4),ylim=c(-0.005,0.008),axes=F,xlab='',ylab='',
-#     col='#20B2AA44',bg='#66CDAA11',pch=21)
+
+plot(sigma[5000:6000,i],weight[5000:6000,i],xlim=c(0,4),ylim=c(-0.005,0.008),axes=F,xlab='',ylab='',
+     col='#20B2AA44',bg='#66CDAA11',pch=21)
 #lines(c(1,1),c(-0.004,0.008),col='gray75')
 #lines(c(2,2),c(-0.004,0.008),col='gray75')
 #lines(c(3,3),c(-0.004,0.008),col='gray75')
@@ -167,52 +301,62 @@ new_plot(which_point = 'center_center',
          coordinates = c(-0.6,1.5),
          width = 2,height = 1,
          label='A')
-plot(0)
-#dindi(sigma[,i],'#20B2AA99','#20B2AA44',3,rango = c(0,4),c(0,4))
-#mtext(expression(sigma),3,col=gray[3],cex=3)
-#axis(1,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],line=0.3,hadj = 0.5,las=2)
+
+dindi(sigma[,i],'#20B2AA99','#20B2AA44',3,rango = c(0,4),c(0,4))
+mtext(expression(sigma),3,col=gray[3],cex=3)
+axis(1,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],line=0.3,hadj = 0.5,las=2)
 
 ### Weight Hori
 new_plot(which_point = 'center_center',
          coordinates = c(1.5,1.5),
          width = 2,height = 1,
          label='B')
-plot(0)
-#dindi(weight[,i],'#20B2AA99','#20B2AA44',3,rango = c(-0.005,0.008),c(-0.005,0.008))
-#mtext('w',3,col=gray[3],cex=3)
-#axis(1,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],las=2,line=0.3,hadj = 0.5)
+dindi(weight[,i],'#20B2AA99','#20B2AA44',3,rango = c(-0.005,0.008),c(-0.005,0.008))
+mtext('w',3,col=gray[3],cex=3)
+axis(1,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],las=2,line=0.3,hadj = 0.5)
 
 ### Delta verti 
 new_plot(which_point = 'center_center',
          coordinates = c(-2.5,-0.3),
          width = 1,height = 2,
          label='C')
-plot(0)
-#dindi(delta[,i],'#20B2AA99','#20B2AA44',2,c(-3,0),c(-3,0))
-#mtext(expression(delta),3,col=gray[3],cex=3,line=-4)
-#axis(4,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],las=2,line=0.3,hadj=0.7)
+
+dindi(delta[,i],'#20B2AA99','#20B2AA44',2,c(-3,0),c(-3,0))
+mtext(expression(delta),3,col=gray[3],cex=3,line=-4)
+axis(4,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],las=2,line=0.3,hadj=0.7)
 
 ### Weight Verti
 new_plot(which_point = 'center_center',
          coordinates = c(-2.5,-2.5),
          width = 1,height = 2,
          label='D')
-plot(0)
-#dindi(weight[,i],'#20B2AA99','#20B2AA44',2,rango = c(-0.005,0.008),c(-0.005,0.008))
-#mtext('w',3,col=gray[3],cex=3,line=-4)
-#axis(4,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],las=2,line=0.3,hadj=0.5)
+
+dindi(weight[,i],'#20B2AA99','#20B2AA44',2,rango = c(-0.005,0.008),c(-0.005,0.008))
+mtext('w',3,col=gray[3],cex=3,line=-4)
+axis(4,cex.axis=0.6,tck=-0.020,col=gray[5],col.axis=gray[5],las=2,line=0.3,hadj=0.5)
 
 
 new_plot(which_point = 'center_center',
          coordinates = c(1.6,-2.2),
          width = 1,height = 1,
          label='D')
-plot(0)
-#plot(0,type='n',xlim=c(0,1),ylim=c(0,1),xlab='',ylab='',axes=F)
-#text(0.5,0.5,i, cex=5,col='gray80')
+plot(0,type='n',xlim=c(0.5,3.5), ylim=c(0,25000),axes=F,xlab='',ylab='')
+axis(1, at=c(1,2,3), lwd.ticks = 0.01)
+#text(1.5,10000,i, cex=3,col='#BDACAF99')
+hist(z[,i], xlim=c(0,4),main='', breaks=seq(0.75,3.7,0.5),
+     axes=F, add=T, ylim=c(0,25000), col='#CE6173F2', border='white')
 
-end_poster(global_guides = T,
-           local_guides = T)
+
+new_plot(which_point = 'center_center',
+         coordinates = c(-2.5,1.5),
+         width = 1,height = 1,
+         label='D')
+
+plot(0,type='n',xlim=c(0,1),ylim=c(0,1),xlab='',ylab='',axes=F)
+text(0.5,0.5,i, cex=5,col='gray80')
+
+end_poster(global_guides = F,
+           local_guides = F)
 embed_fonts(file)
 
 
@@ -246,14 +390,6 @@ me_b_x_R <- as.numeric(gsub("Mean   :","",me_b_x_R))
 
 
 
-
-layout(matrix(c(1:25),nrow=5,byrow=T))
-
-for(i in 1:n_sub){
-  hist(z[,i],xlim=c(0.5,3.5), breaks=seq(0.5,3.5,0.2),axes=F)
-  axis(1, at=c(1,2,3), lwd.ticks = 0, )
-  
-}
 
 layout(1)
 

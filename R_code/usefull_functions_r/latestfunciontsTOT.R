@@ -65,14 +65,13 @@ colores <- list(gray <- c("#6F6F6F37","#6F6F6F64","#6F6F6F96","#6F6F6FC8","#6F6F
 
 
 predicciones_datos <- function(solo_dato,actual_choice,que_theta,titulo1,titulo2){
- 
- mean_t_trade_theta <- array(NA,dim=c(n_sub,n_que))
- predicha_t_trade<- array(NA,dim=c(n_sub,n_que,n_rep))
- for(i in 1:n_sub){
-  for(j in 1:n_que){
-   mean_t_trade_theta[i,j] <- mean(que_theta[,i,j])
-   for(k in 1:n_rep){
-    predicha_t_trade[i,j,k] <- rbinom(1,1,mean_t_trade_theta[i,j]) 
+  mean_t_trade_theta <- array(NA,dim=c(n_sub,n_que))
+  predicha_t_trade<- array(NA,dim=c(n_sub,n_que,n_rep))
+  for(i in 1:n_sub){
+    for(j in 1:n_que){
+      mean_t_trade_theta[i,j] <- mean(que_theta[,i,j])
+    for(k in 1:n_rep){
+      predicha_t_trade[i,j,k] <- rbinom(1,1,mean_t_trade_theta[i,j]) 
    }
   }
  }
