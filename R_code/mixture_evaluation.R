@@ -4,7 +4,7 @@ rm(list=ls())
 
 #load("~/Documents/Heavy_Stuff/article/latent_mixture_model_v1.RData")
 load("/Volumes/MemoriaEle/HeavyData/Heavy_Stuff/article/latent_mixture_model_v1.RData")
-
+load("/Volumes/MemoriaEle/HeavyData/Heavy_Stuff/article/latent_mixture_model_v2_8chains.RData")
 #plot(samples)
 
 setwd('~/Documents/InterTempoChoiceModels/')
