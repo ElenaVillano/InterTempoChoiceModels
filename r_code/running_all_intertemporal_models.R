@@ -22,7 +22,7 @@ n_rep <- 10            #k
 # Raw
 dire_t <- NA
 for (i in 1:n_sub){
- dire_t[i] <- paste('~/Google Drive/Nube/Intertemporal_Risky_Choice_Project/Tesis/Fase_buena/data/sujeto_',i,'_tiempo.csv',sep='')
+ dire_t[i] <- paste('../data/sujeto_',i,'_tiempo.csv',sep='')
 }
 csvs_time <- lapply(dire_t,read.csv)
 

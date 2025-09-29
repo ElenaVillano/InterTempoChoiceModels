@@ -1,5 +1,5 @@
 # ignore everything in the following folders
-
+outputs/*
 site_libs/*
 _manuscript/*
 index.pdf
