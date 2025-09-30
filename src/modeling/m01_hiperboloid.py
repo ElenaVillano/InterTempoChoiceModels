@@ -1,6 +1,5 @@
 import numpy as np
 import pyjags
-import arviz as az
 
 # ----------------------------------------------------------
 # 1) Cargar los datos preparados
@@ -95,3 +94,4 @@ np.savez_compressed(
 )
 
 print("Resultados guardados en outputs/hyperboloid_samples.npz")
+
