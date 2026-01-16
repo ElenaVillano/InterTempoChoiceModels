@@ -1,4 +1,4 @@
-###### Direc Differences #####
+##### Direc Differences #####
 ### Clearworkspace
 rm(list=ls())
 
@@ -6,12 +6,12 @@ rm(list=ls())
 library(R2jags)
 set.seed(77)
 
-#### General especifications
+### General especifications
 n_sub <- 25            #i
 n_que <- 24            #j
 n_rep <- 10            #k
 
-#### Upload Data
+### Upload Data
 # Raw
 dire_t <- NA
 for (i in 1:n_sub){
@@ -27,7 +27,7 @@ for(i in 1:n_sub){
  }
 }
 
-#### Especification Questions
+### Question Especifications
 # Outcome of the smaller reward
 x_ss <- c(5150,5300,5450,5150,5300,5150,
           6050,6200,6350,6050,6200,6050,
@@ -49,8 +49,7 @@ t_ll <- c(2,3,4,3,4,4,
           4,7,10,7,10,10,
           4,7,10,7,10,10)
 
-
-#### Especifications for JAGS
+### JAGS Especifications 
 # Data that JAGS will use
 data <- list("n_que","n_sub","n_rep","t_choice","x_ss","x_ll","t_ss","t_ll")
 
@@ -111,7 +110,6 @@ samples <- jags.parallel(data,
                          n.iter = 1500000,
                          n.burnin = 900000,
                          n.thin = 200)
-
 
 
 unlink('DDModel.bug')
