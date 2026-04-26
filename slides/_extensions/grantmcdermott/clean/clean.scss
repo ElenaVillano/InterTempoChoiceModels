@@ -1,0 +1,376 @@
+/*-- scss:defaults --*/
+
+// Custom colours and variables
+
+$jet: #424038;
+$accent: #ffa07a;
+$accent2: #c4d249;
+// $accent2: #e64173;
+$right-arrow: "\2192"; // Unicode character for right arrow
+
+// fonts
+
+/*
+Note: This theme uses the Roboto font family, which it imports from Google
+  Fonts to ensure consistent weighting in addition to availability. While
+  you can use a local installation of Roboto, this is generally not 
+  recommended since the weighting will likely be wrong (probably too
+  light). OTOH, importing from Google Fonts can cause some issues in
+  certain secure environments due the external CDN (see:
+  https://github.com/grantmcdermott/quarto-revealjs-clean/issues/7). If
+  that's the case for you, simply comment out the `@import url(...)` line
+  below and it will default for the default Sans Serif font on your system
+  (e.g., Helvetica on a Mac). Circling back to the earlier point about
+  preserving consistent font weights, you may also wish to remove "Roboto"
+  from the choice set if the family is installed locally.
+*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:200,200i,300,300i,350,350i,400,400i&display=swap');
+
+$font-family-sans-serif: "Roboto", sans-serif !default;
+$presentation-heading-font: "Roboto", sans-serif !default;
+
+$presentation-heading-color: $jet !default;
+$presentation-heading-font-weight: lighter;
+//$presentation-heading-line-height: 2;
+//$presentation-block-margin: 28px;
+$presentation-font-size-root: 32px;
+
+// colors
+//$body-bg: #f0f1eb !default;
+$body-color: $jet !default;
+$link-color: $accent !default;
+$selection-bg: #26351c !default;
+
+
+/*-- scss:rules --*/
+
+
+.reveal a {
+  line-height: 1.5em;
+}
+
+.reveal p {
+  // font-weight: 300;
+  font-weight: lighter;
+  margin-top: 1.25em;
+}
+
+// title and headings
+
+#title-slide {
+  text-align: left;
+
+  .title {
+    color: $body-color;
+    font-size: 1.8em;
+    font-weight: 350;
+  }
+
+  .subtitle {
+    color: #98ceca;
+    font-style: italic;
+    margin-top: 0em;
+    font-weight: 400;
+  }
+
+  .institute,
+  .quarto-title-affiliation,
+  .quarto-title-author-email {
+    font-style: italic;
+    // font-size: 80%;
+    // color: #7F7F7F;
+  }
+
+  .author,
+  .quarto-title-author-name {
+    color: $body-color;
+  }
+
+  .quarto-title-authors {
+    display: flex;
+    justify-content: left;
+
+    .quarto-title-author {
+      padding-left: 0em;
+      padding-right: 0em;
+      width: 100%;
+    }
+  }
+
+}
+
+
+.reveal h2 {
+  font-weight: 350;
+ // font-weight: medium;
+  font-size: 1.5em;
+}
+
+.reveal h3 {
+  color: $accent;
+//  font-style: normal;
+  font-weight: 400;
+  font-size: 1.05em;
+}
+
+.reveal h4 {
+  color: $accent2;
+  // font-weight: 350;
+  font-weight: 400;
+  font-size: 0.9em;
+  margin-top: 0.95em;
+}
+
+// alerts etc.
+
+.alert {
+  color: $accent2;
+}
+
+.fg {
+  color: var(--col, $jet);
+}
+
+.bg {
+  background-color: var(--col, #fff);
+  padding: 0.1em;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+// lists
+
+// Unordered lists
+
+.reveal ul {
+  // font-weight: 300;
+  font-weight: lighter;
+  padding-left: 16px;
+
+  li::marker {
+    color: mix($accent, white, 70%);
+  }
+}
+
+.reveal ul ul {
+  list-style: none;
+
+  li:before {
+    content: $right-arrow;
+    color: mix($accent, white, 60%);
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    margin-right: 0.5em;
+  }
+}
+
+// Ordered lists
+
+.reveal ol {
+  // font-weight: 300;
+  font-weight: lighter;
+  padding-left: 16px;
+
+  li::marker {
+    color: $accent;
+  }
+}
+
+// Move "hamburger" menu button to top right
+
+.reveal .slide-menu-button {
+  position: fixed;
+  top: 6px;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.reveal .slide-menu-button > * {
+  pointer-events: auto;
+}
+
+
+// Same for chalkboard buttons (with an offset)
+
+.reveal .slide-chalkboard-buttons {
+  position: fixed;
+  top: 12px;
+  right: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.reveal .slide-chalkboard-buttons > * {
+  pointer-events: auto;
+}
+
+// Beamer-style button link environment
+
+.button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: $accent;
+  border: 1px solid $accent;
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.button::before {
+  content: "▶";
+  margin-right: 5px;
+}
+
+// tables
+
+/* --- TABLAS MINIMALISTAS ELEGANTES CON TONOS PASTEL --- */
+
+.reveal table {
+  margin: 1.5em auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 65%;
+  font-size: 0.60em;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Celdas */
+.reveal table th,
+.reveal table td {
+  padding: 0.4em 0.6em;
+  text-align: left;
+  border-bottom: 1px solid #e6e6e6;
+  font-weight: 300;
+  color: #555555;
+}
+
+/* Zebra sutil en filas pares */
+.reveal table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Zebra más visible al pasar el cursor */
+.reveal table tbody tr:hover {
+  background-color: #f3f3f3;
+}
+
+/* Encabezado con color pastel */
+.reveal table thead th {
+  background-color: #bcf1e4; /* tono melocotón pastel */
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: left;
+  border-bottom: 1px solid #bcf1e4;
+  padding: 0.5em;
+}
+
+/* Caption discreto */
+.reveal table caption {
+  color: #777777;
+  font-size: 0.75em;
+  margin-top: 0.4em;
+  font-style: italic;
+}
+
+// Special catch for etable environment to ensure these table images
+// don't overflow the slide.
+// See: https://lrberge.github.io/fixest/articles/etable_new_features.html
+
+.etable {
+  width: 100%;
+  height: calc(100% - 3em); /* Adjust 3em based on the height of your header, if necessary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.etable img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+// Change the relative widths of `output-location: column`.  Usage:
+// ```{python}
+// #| echo: true
+// #| output-location: column
+// #| classes: columns3070
+
+.reveal .columns3070 > div.column:first-child {
+  width: 30%;
+}
+.reveal .columns3070 div.column:not(:first-child) {
+  width: 70%;
+}
+.reveal .columns7030 > div.column:first-child {
+  width: 70%;
+}
+.reveal .columns7030 div.column:not(:first-child) {
+  width: 30%;
+}
+.reveal .columns4060 > div.column:first-child {
+  width: 40%;
+}
+.reveal .columns4060 div.column:not(:first-child) {
+  width: 60%;
+}      
+.reveal .columns6040 > div.column:first-child {
+  width: 60%;
+}
+.reveal .columns6040 div.column:not(:first-child) {
+  width: 40%;
+}      
+
+/* --- COLORES AYU PARA REVEALJS --- */
+
+.reveal pre code {
+  background-color: #fafafa !important;
+  color: #5c6773 !important;
+}
+/* keywords (def, class, etc.) */
+.reveal code span.kw { color: #f29718 !important; }
+/* functions */
+.reveal code span.fu { color: #36a3d9 !important; }
+/* strings */
+.reveal code span.st { color: #86b300 !important; }
+/* numbers */
+.reveal code span.dv { color: #f07178 !important; }
+/* comments */
+.reveal code span.co { color: #a0a1a7 !important; font-style: italic; }
+/* operators */
+.reveal code span.op { color: #e6b450 !important; }
+
+/* inline code */
+.reveal code:not(pre code) {
+  background-color: #f4f4f4;
+  color: #444;
+  border-radius: 3px;
+  padding: 0.1em 0.3em;
+  font-family: "Roboto Mono", monospace;
+}
+
