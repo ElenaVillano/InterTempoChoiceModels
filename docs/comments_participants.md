@@ -8,7 +8,7 @@
     - **Participants 4–8**: Tend to choose the LL reward in the shorter subintervals, but switch to the SS reward for larger intervals (roughly from problems 6 and 12 considering the interval size). This represents a clear subadditive pattern.
     > I would choose participant 7 to illustrate this pattern.
     - **Participants 9–24** (within this group): Show varying degrees of subadditivity, choosing LL in subintervals but switching to SS as interval size increases.
-    > And participant 17 to illustrate this pattern.
+    > Could be participant 17, 18, or 19, depending on how clearly you want to illustrate this pattern.
 
 - Participants 15, 16, 20, 22, 23 do not show interval effects, which is consistent with none of them being best fit by the UT model.
     - Empirically, participants 15, 16, and 20 tend to be more inconsistent in the shorter subintervals. I think this uncertainty leads the UT model to constrain its predictions toward lower LL choice counts. Despite the absence of subadditivity, the UT model still generates posterior predictives favoring SS choices on problems 6 and 12 (the full intervals that cover the smallest subintervals). In contrast, neither ITCH nor DD predicts subadditivity in these cases, which is likely what makes them better fits for these participants.
