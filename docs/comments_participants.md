@@ -1,10 +1,11 @@
 # Observations on participant patterns and models
+
 - Some comments about these models:
     - The DD model predicts the same type of response regardless of interval size. Only in some cases (e.g., participant 16) does it distinguish between large and small reward magnitudes.
     - The PD model shows a very abrupt shift between smaller intervals and larger ones, and does not appear sensitive to individual participant response patterns. It always assumes subadditivity, and also implies a magnitude effect: for rewards delivered sooner (shorter delays) it does not predict subadditivity, but for more distant rewards it does. However, this pattern does not match any participant in our data, making the PD model a poor fit throughout.
 
 - Participants 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 19, 21, 24 show some form of subadditivity. In all of them, subadditivity is progressive and present even for small reward magnitudes. I can distinguish two types of subadditivity in this group:
-    - **Participants 4–8**: Tend to choose the LL reward in the shorter subintervals, but switch to the SS reward for larger intervals (roughly from problems 6–12). This represents a clear subadditive pattern.
+    - **Participants 4–8**: Tend to choose the LL reward in the shorter subintervals, but switch to the SS reward for larger intervals (roughly from problems 6 and 12 considering the interval size). This represents a clear subadditive pattern.
     > I would choose participant 7 to illustrate this pattern.
     - **Participants 9–24** (within this group): Show varying degrees of subadditivity, choosing LL in subintervals but switching to SS as interval size increases.
     > And participant 17 to illustrate this pattern.
