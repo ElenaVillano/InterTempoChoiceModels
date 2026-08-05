@@ -126,7 +126,7 @@ out of 10. This uncertainty is not reduced to problems with medium-length interv
 
 ## 14. (page 22)
 
-I'm not sure I follow the specific pairing for Participant K (problem 6 vs. 9, problem 12 vs. 21). I'm not sure if we mention this in the reunion but is there a specific reason you chose those? I think the magnitude effect shows up more broadly as a contrast between the whole set of large-reward problems versus the whole set of small-reward problems.
+I'm not sure I follow the specific pairing for Participant K (problem 6 vs. 9, problem 12 vs. 21). I'm not sure if we mentioned this in the meeting, but is there a specific reason you chose those? I think the magnitude effect shows up more broadly as a contrast between the whole set of large-reward problems versus the whole set of small-reward problems.
 
 # 15. (page 23, Figure 6)
 
