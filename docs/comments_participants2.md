@@ -97,8 +97,7 @@ There is a missing point at the end of the figure description.
 
 ## 13. Participants behavior 
 
-```
-The panels in Figure 2 summarize the behavioral data for each participant. The participants are ordered
+> The panels in Figure 2 summarize the behavioral data for each participant. The participants are ordered
 from the one who made the most overall smaller-sooner choices to the one who made the most larger-later
 choices. There are clear individual differences along this basic behavioral measure, and further
 differences in the choice patterns across different types of problems: most participants show progressive 
@@ -108,23 +107,22 @@ participants also show a magnitude effect: the interval-sensitive patterns are m
 reward problems, while on the small-reward problems  (sand squares) participants overwhelmingly choose the smaller-sooner
 reward regardless of how the interval is subdivided. We highlight four broadly representative patterns.
 
-Most participants show a superadditive pattern: they choose the larger-later reward in shorter 
+> Most participants show a superadditive pattern: they choose the larger-later reward in shorter 
 subintervals (yellow and red squares) but switch to the smaller-sooner reward for larger, undivided intervals (blue squartes), though the point at
 which that switch happens varies considerably across individuals. Some switch quickly, as soon as
 subintervals grow even slightly longer; others continue choosing the larger-later reward well into longer 
 subintervals, only switching for the largest, undivided intervals. Participants E, H, and N are broadly
 representative of this pattern.
 
-A second group of participants shows considerably more uncertainty in their choices: almost no problem is
+> A second group of participants shows considerably more uncertainty in their choices: almost no problem is
 answered consistently across all ten repetitions, with larger-later counts often falling between 3 and 8
 out of 10. This uncertainty is not reduced to problems with medium-length intervals, it is also present in the smallest subintervals and the largest intervals, unlike the more decisive patterns seen elsewhere. Participants L and T are broadly representative of this pattern.
 
-A third group shows no interval effect. Participant V, for example, is clearly sensitive to reward and time magnitude, but not specifically to whether an interval is subdivided.
+> A third group shows no interval effect. Participant V, for example, is clearly sensitive to reward and time magnitude, but not specifically to whether an interval is subdivided.
 
-A fourth group of participants, illustrated by A, B and Y, chooses the same type of alternative, either smaller-sooner or larger-later, across nearly every problem, irrespective of the interval or reward magnitude involved.
+> A fourth group of participants, illustrated by A, B and Y, chooses the same type of alternative, either smaller-sooner or larger-later, across nearly every problem, irrespective of the interval or reward magnitude involved.
 
-The remaining participants fall along a continuum between these patterns.
-```
+> The remaining participants fall along a continuum between these patterns.
 
 ## 14. (page 22)
 
